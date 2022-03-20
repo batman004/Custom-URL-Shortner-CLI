@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	gocontroller "github.com/batman004/Custom-URL-Shortner-CLI/controllers"	
 ) 
 
 func HandleGet(getCmd *flag.FlagSet, all *bool, customTag *string){
@@ -18,28 +19,26 @@ func HandleGet(getCmd *flag.FlagSet, all *bool, customTag *string){
 
 	if *all {
 		//return all videos
-		urls := getUrls()
+		Urls := gocontroller.GetUrls()
 		
 		fmt.Printf("Original \t Shortened \t CustomTag \t Description \n")
-		for _, url := range urls {
-			fmt.Printf("%v \t %v \t %v \t %v \n",url.original, url.shorten, url.customTag, url.description)
+		for _, url := range Urls {
+			fmt.Printf("%v \t %v \t %v \t %v \n",url.OriginalUrl, url.ShortenedUrl, url.CustomTag, url.Description)
 		}
 
 		return
 	}
 
 	if *customTag != "" {
-		urls := getUrls()
+		urls := gocontroller.GetUrls()
 		customTag := *customTag
 		for _, url := range urls {
-			if customTag == url.Id {
+			if customTag == url.CustomTag {
 				fmt.Printf("Original \t Shortened \t CustomTag \t Description \n")
-				fmt.Printf(" %v \t %v \t %v \t %v \n",url.original, url.shorten, url.customTag, url.description)
+				fmt.Printf("%v \t %v \t %v \t %v \n",url.OriginalUrl, url.ShortenedUrl, url.CustomTag, url.Description)
 			}
 		}
 	} 
-
-
 
 }
 
@@ -55,22 +54,24 @@ func ValidateUrl(addCmd *flag.FlagSet,customTag *string, originalUrl *string, de
 
 }
 
-func HandleAdd(addCmd *flag.FlagSet,id *string, customTag *string, originalUrl *string, description *string, shortenedUrl *string ){
+func HandleAdd(addCmd *flag.FlagSet,customTag *string, originalUrl *string, description *string){
 
 	ValidateUrl(addCmd, customTag, originalUrl,description )
 
 
+	shortenedUrl := CreateUrl(*originalUrl)
 
-	url := Url {
+
+	url := gocontroller.Url {
 		CustomTag: *customTag,
 		Description: *description,
 		OriginalUrl: *originalUrl, 
-		ShortenedUrl: *shortenedUrl,
+		ShortenedUrl: shortenedUrl,
 	}
 
-	urls := getUrls()
+	urls := gocontroller.GetUrls()
 	urls = append(urls,url)
 
-	saveUrls(urls)
+	gocontroller.SaveUrl(urls)
 
 }

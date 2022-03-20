@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"flag"
+	handler "github.com/batman004/Custom-URL-Shortner-CLI/handlers"
 )
 
 func main() {
@@ -14,15 +15,16 @@ func main() {
   getCmd := flag.NewFlagSet("get", flag.ExitOnError)
 
 	// inputs for `URL get` command
-  getAll := getCmd.Bool("all", false, "Get all custom bookmarked URL")
-  getCustom := getCmd.String("custom", "", "custom name given for a url")
+  getAll := getCmd.Bool("all", false, "Get all custom bookmarked URLs")
+  getCustom := getCmd.String("custom", "", "custom name given for a URL")
 
 	//'URL add' subcommand
   addCmd := flag.NewFlagSet("add", flag.ExitOnError)
 
 	// inputs for `videos add` command
-  addUrl := addCmd.String("url", "", "Create new shortened URL")
-  addCustomUrl := addCmd.String("custom-url", "", "Create new custom URL")
+  addUrl := addCmd.String("url", "", "Add the URL you want to shorten")
+  addCustomTag := addCmd.String("custom-tag", "", "Create new custom tag for URL ")
+  addDescription := addCmd.String("description", "", "Add Description of bookmarked URL")
 
 	if len(os.Args) < 2 {
 		fmt.Println("expected 'get' or 'add' subcommands")
@@ -32,9 +34,9 @@ func main() {
 	//look at the 2nd argument's value
 	switch os.Args[1] {
 		case "get": // if its the 'get' command
-			HandleGet(getCmd, getAll, getCustom)
+		handler.HandleGet(getCmd, getAll, getCustom)
 		case "add": // if its the 'add' command
-			HandleAdd(addCmd,addUrl, addCustomUrl)
+		handler.HandleAdd(addCmd,addCustomTag, addUrl, addDescription)
 		default: // if we don't understand the input
 	}
 

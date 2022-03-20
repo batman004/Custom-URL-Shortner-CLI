@@ -1,42 +1,38 @@
 package handlers
 
 import (
-
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
-
 )
 
-func createUrl(originalUrl string)[]byte{
+func CreateUrl(originalUrl string) string{
 
 	baseUrl := "http://tinyurl.com/api-create.php?url="
 	urlToShorten := originalUrl
 	getReqUrl := baseUrl + urlToShorten
 
-	request, err := http.NewRequest(
-		http.MethodGet, //method
-		getReqUrl,        //url
-		nil,            //body
-	)
-
+	req, err := http.NewRequest("GET", getReqUrl, nil)
 	if err != nil {
-		log.Printf("Could not process a custom URL %v", err)
+		log.Fatalln(err)
 	}
 
+	req.Header.Set("Accept", "text/html")
 
-	request.Header.Add("Accept", "text/html")
-
-	response, err := http.DefaultClient.Do(request)
+	client := &http.Client{}
+	resp, err := client.Do(req)
 	if err != nil {
-		log.Printf("Could not make a request. %v", err)
+		log.Fatalln(err)
 	}
 
-	responseBytes, err := ioutil.ReadAll(response.Body)
+	defer resp.Body.Close()
+
+	b, err := io.ReadAll(resp.Body)
+	// b, err := ioutil.ReadAll(resp.Body)  Go.1.15 and earlier
 	if err != nil {
-		log.Printf("Could not read response body. %v", err)
+		log.Fatalln(err)
 	}
 
-	return responseBytes
+	return (string(b))
 
 }

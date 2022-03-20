@@ -3,11 +3,14 @@ package controllers
 import(
 	"io/ioutil"
 	"encoding/json"
+
 )
 
-func getUrls()(urls []Url){
+
+
+func GetUrls()(urls []Url){
 	
-	fileBytes, err := ioutil.ReadFile("./videos.json")
+	fileBytes, err := ioutil.ReadFile("data/saved_urls.json")
 
 	if err != nil {
 		panic(err)
@@ -22,14 +25,14 @@ func getUrls()(urls []Url){
 	return urls
 }
 
-func saveUrl(urls []Url)(){
+func SaveUrl(urls []Url)(){
 
 	videoBytes, err  := json.Marshal(urls)
 	if err != nil {
 		  panic(err)
 	  }
   
-	  err = ioutil.WriteFile("./urls.json", videoBytes, 0644)
+	  err = ioutil.WriteFile("data/saved_urls.json", videoBytes, 0644)
 	if err != nil {
 		  panic(err)
 	  }
