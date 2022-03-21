@@ -36,6 +36,10 @@ Custom-URL-Shortner-CLI.exe <COMMAND>
 
 Or, you can check out the pre-compiled binaries under **Releases**
 
+1. Download the binary for your system (check releases)
+2. Create a folder Data and an empty json file with the name `saved_urls.json`
+3. Execute the tool by executing the binary according to your OS (see above)
+
 - Usage
 
 ```
