@@ -76,5 +76,14 @@ Flags:
  Custom-URL-Shortner-CLI add -custom <tag>
 ```
 
+## Coming up
+
+- [ ] Add persistent database support ⚓
+- [ ] User Signup/Login 🔒
+- [ ] add web-server to server urls with custom-tags 🕸️
+- [ ] add folders to store URL(s) 📁
+- [ ] delete/edit custom-tag 📝
+
+
 
 
