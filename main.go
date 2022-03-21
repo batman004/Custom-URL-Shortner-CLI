@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -23,7 +22,7 @@ func main() {
 
 	// inputs for `videos add` command
   addUrl := addCmd.String("url", "", "Add the URL you want to shorten")
-  addCustomTag := addCmd.String("custom-tag", "", "Create new custom tag for URL ")
+  addCustomTag := addCmd.String("custom-tag", "", "Create new custom tag for URL")
   addDescription := addCmd.String("description", "", "Add Description of bookmarked URL")
 
 	if len(os.Args) < 2 {
@@ -36,7 +35,7 @@ func main() {
 		case "get": // if its the 'get' command
 		handler.HandleGet(getCmd, getAll, getCustom)
 		case "add": // if its the 'add' command
-		handler.HandleAdd(addCmd,addCustomTag, addUrl, addDescription)
+		handler.HandleAdd(addCmd, addUrl,addCustomTag, addDescription)
 		default: // if we don't understand the input
 	}
 

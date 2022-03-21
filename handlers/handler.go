@@ -12,7 +12,7 @@ func HandleGet(getCmd *flag.FlagSet, all *bool, customTag *string){
 	getCmd.Parse(os.Args[2:])
 
 	if *all == false && *customTag == "" {
-    fmt.Print("custom-tag is required or specify --all for all urls")
+    fmt.Println("custom-tag is required or specify --all for all urls")
     getCmd.PrintDefaults()
     os.Exit(1)
   }
@@ -42,35 +42,39 @@ func HandleGet(getCmd *flag.FlagSet, all *bool, customTag *string){
 
 }
 
-func ValidateUrl(addCmd *flag.FlagSet,customTag *string, originalUrl *string, description *string ){
+func ValidateUrl(addCmd *flag.FlagSet, originalUrl *string, customTag *string, description *string ){
 
 	addCmd.Parse(os.Args[2:])
 
 	if *customTag == "" || *originalUrl == "" || *description == "" {
-		fmt.Print("all fields are required for bookmarking a url")
+		fmt.Println("all fields are required for bookmarking a url")
 		addCmd.PrintDefaults()
 		os.Exit(1)
 	}
 
 }
 
-func HandleAdd(addCmd *flag.FlagSet,customTag *string, originalUrl *string, description *string){
+func HandleAdd(addCmd *flag.FlagSet, originalUrl *string,customTag *string, description *string){
 
-	ValidateUrl(addCmd, customTag, originalUrl,description )
+	ValidateUrl(addCmd,originalUrl,customTag, description )
 
 
 	shortenedUrl := CreateUrl(*originalUrl)
 
+	// add check for empty json file
+
 
 	url := gocontroller.Url {
+
 		CustomTag: *customTag,
 		Description: *description,
 		OriginalUrl: *originalUrl, 
 		ShortenedUrl: shortenedUrl,
 	}
 
-	urls := gocontroller.GetUrls()
-	urls = append(urls,url)
+    urls := gocontroller.GetUrls()
+
+	urls = append(urls, url)
 
 	gocontroller.SaveUrl(urls)
 

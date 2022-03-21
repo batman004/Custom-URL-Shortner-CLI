@@ -36,5 +36,6 @@ func SaveUrl(urls []Url)(){
 	if err != nil {
 		  panic(err)
 	  }
+
   
   }
