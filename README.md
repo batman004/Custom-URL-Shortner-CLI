@@ -12,7 +12,7 @@ git clone https://github.com/batman004/Custom-URL-Shortner-CLI.git
 ```
 CD into the project DIR
 ```bash 
-cd Custom-URL-Shortner-CLI.git
+cd Custom-URL-Shortner-CLI
 ```
 
 Run the build command to create a executable binary of the project
@@ -37,8 +37,8 @@ Custom-URL-Shortner-CLI.exe <COMMAND>
 Or, you can check out the pre-compiled binaries under **Releases**
 
 1. Download the binary for your system (check releases)
-2. Create a folder Data and an empty json file with the name `saved_urls.json`
-3. Execute the tool by executing the binary according to your OS (see above)
+2. Create a folder Data and an empty json file inside it with the name `saved_urls.json`
+3. Spin up the CLI by executing the binary according to your OS (see above)
 
 - Usage
 
@@ -51,8 +51,8 @@ Available Commands:
   get        get bookmarked URL(s)
 
 Flags:
-  -custom-tag   help for gtasks
-  -description   Help message for toggle
+  -custom-tag    add custom-tag while bookmarking URL for easy reference
+  -description   add description for URL to be added
   --all          get all bookmarked URL(s)
   -custom        get bokmarked URL based on custom tag
   -url           add the URL to be shortened
